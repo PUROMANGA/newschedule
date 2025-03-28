@@ -21,22 +21,17 @@ public class Schedule extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String content;
 
     public Schedule(RequstScheduleDto requstScheduleDto) {
-        this.name = requstScheduleDto.getName();
         this.title = requstScheduleDto.getTitle();
         this.content = requstScheduleDto.getContent();
     }
 
     public void update(RequstScheduleDto requstScheduleDto) {
-        this.name = requstScheduleDto.getName();
         this.title = requstScheduleDto.getTitle();
         this.content = requstScheduleDto.getContent();
     }

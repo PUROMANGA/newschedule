@@ -1,23 +1,24 @@
 package com.example.schedule.dto;
 
-import com.example.schedule.entity.Schedule;
+import com.example.schedule.entity.User;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 
-public class ResponseScheduleDto {
+public class ResponseUserDto {
     private Long id;
-    private String title;
-    private String content;
+    private String name;
+    private String email;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public ResponseScheduleDto(Schedule a) {
+    public ResponseUserDto(User a) {
         this.id = a.getId();
-        this.title = a.getTitle();
-        this.content = a.getContent();
+        this.name = a.getName();
+        this.email = a.getEmail();
         this.createdAt = a.getCreatedAt();
         this.modifiedAt = a.getModifiedAt();
     }
