@@ -1,12 +1,13 @@
-package com.example.schedule.entity;
+package com.example.schedule.schedule.entitiy;
 
-import com.example.schedule.dto.RequstScheduleDto;
-import com.example.schedule.dto.ResponseScheduleDto;
+import com.example.schedule.baseEntity.BaseEntity;
+import com.example.schedule.user.entity.User;
+import com.example.schedule.schedule.dto.RequstScheduleDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.Setter;
 
 @Getter
 @Table(name = "schedule")
@@ -25,6 +26,11 @@ public class Schedule extends BaseEntity {
 
     @Column(nullable = false)
     private String content;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Schedule(RequstScheduleDto requstScheduleDto) {
         this.title = requstScheduleDto.getTitle();

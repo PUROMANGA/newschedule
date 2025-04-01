@@ -1,13 +1,14 @@
-package com.example.schedule.entity;
+package com.example.schedule.user.entity;
 
-import com.example.schedule.dto.RequestUserDto;
+import com.example.schedule.baseEntity.BaseEntity;
+import com.example.schedule.user.dto.RequestUserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Table(name = "User")
+@Table(name = "users")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, length = 4)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -28,7 +29,12 @@ public class User extends BaseEntity {
     private String pw;
 
     public User(RequestUserDto requestUserDto) {
-        this.name = name;
+        this.name = requestUserDto.getName() != null ? requestUserDto.getName() : "ㅇㅇ";
+        this.email = requestUserDto.getEmail();
+        this.pw = requestUserDto.getPw();
+    }
+
+    public User(String email, String pw) {
         this.email = email;
         this.pw = pw;
     }
