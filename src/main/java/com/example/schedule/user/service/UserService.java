@@ -1,5 +1,7 @@
 package com.example.schedule.user.service;
 
+import com.example.schedule.exception.CustomException;
+import com.example.schedule.exception.ExceptionErrorCode;
 import com.example.schedule.user.dto.RequestUserDto;
 import com.example.schedule.user.dto.ResponseUserDto;
 import com.example.schedule.user.entity.User;
@@ -32,11 +34,11 @@ public class UserService {
     }
 
     public ResponseUserDto getIdUserService(Long id) {
-        return new ResponseUserDto(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 유저가 존재하지 않습니다. ID: " + id)));
+        return new ResponseUserDto(userRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionErrorCode.DEFAULT_ERROR_MESSAGE)));
     }
 
     public ResponseUserDto updateUser(Long id, RequestUserDto requestUserDto) {
-        User findIdUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 유저가 존재하지 않습니다. ID: " + id));
+        User findIdUser = userRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionErrorCode.DEFAULT_ERROR_MESSAGE)));
         findIdUser.update(requestUserDto);
 
         return new ResponseUserDto(
@@ -44,7 +46,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id, RequestUserDto requestUserDto) {
-        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 ID의 유저가 존재하지 않습니다. ID: " + id)));
+        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionErrorCode.DEFAULT_ERROR_MESSAGE)));
     }
 
     public ResponseUserDto saveUser(String email, String pw) {
@@ -62,7 +64,7 @@ public class UserService {
     }
 
     public ResponseUserDto findUser(String email, String pw) {
-        User findedUserService = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("HTTP Status code 401"));
+        User findedUserService = userRepository.findByEmail(email).orElseThrow(() -> new CustomException(ExceptionErrorCode.LOGIN_ERROR_MESSAGE));
         if(!passwordEncoder.matches(pw, findedUserService.getPw())) {
             throw new RuntimeException("비밀번호 불일치");
         }

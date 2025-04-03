@@ -3,6 +3,7 @@ package com.example.schedule.schedule.controller;
 import com.example.schedule.schedule.service.ScheduleService;
 import com.example.schedule.schedule.dto.RequstScheduleDto;
 import com.example.schedule.schedule.dto.ResponseScheduleDto;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,31 +25,67 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @PostMapping //스케줄을 등록합니다!
-    public ResponseEntity<ResponseScheduleDto> postSchedule(@RequestBody RequstScheduleDto requstScheduleDto) {
+    /**
+     * 스케줄 등록
+     * @param requstScheduleDto
+     * @return
+     */
+
+    @PostMapping
+    public ResponseEntity<ResponseScheduleDto> postSchedule(@RequestBody @Valid RequstScheduleDto requstScheduleDto) {
         return new ResponseEntity<>(scheduleService.postServiceSchedule(requstScheduleDto), HttpStatus.CREATED);
     }
 
-    @GetMapping //등록한 전체 스케줄을 조회합니다!
+    /**
+     * 전체 스케줄 조회
+     * @return
+     */
+
+    @GetMapping!
     public ResponseEntity<List<ResponseScheduleDto>> getAllSchedule() {
         return new ResponseEntity<>(scheduleService.getAllServiceSchedule(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")//특정 id 스케줄을 조회합니다!
+    /**
+     * 특정 스케줄 조회
+     * @param id
+     * @return
+     */
+
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseScheduleDto> getAllScheduleId(@PathVariable Long id) {
-        return new ResponseEntity<>(scheduleService.postServiceScheduleId(id), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.getServiceScheduleId(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}") //특정 id 스케줄을 수정합니다!
-    public ResponseEntity<ResponseScheduleDto> updateSchedule(@PathVariable Long id, @RequestBody RequstScheduleDto requstScheduleDto) {
+    /**
+     * 특정 스케쥴 조회 -> 수정
+     * @param id
+     * @param requstScheduleDto
+     * @return
+     */
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseScheduleDto> updateSchedule(@PathVariable Long id, @RequestBody @Valid RequstScheduleDto requstScheduleDto) {
         return new ResponseEntity<>(scheduleService.updateServiceSchdeule(id, requstScheduleDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}") //특정 id 스케줄을 삭제합니다!
+    /**
+     * 특정 스케줄 조회 -> 삭제
+     * @param id
+     * @return
+     */
+
+    @DeleteMapping("/{id}") //특정 id 스케줄을 삭제합니다!x
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteServiceSchedule(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+     * 페이지로 보여주기
+     * @param pageable
+     * @return
+     */
 
     @GetMapping("/schedules")
     public ResponseEntity<Page<ResponseScheduleDto>> getSchedules(@PageableDefault(size = 10, sort = "modifiedAt", direction = Sort.Direction.DESC) Pageable pageable) {

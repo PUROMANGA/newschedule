@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
@@ -24,12 +23,10 @@ public class Comment extends BaseEntity {
 
     private String commentContents;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

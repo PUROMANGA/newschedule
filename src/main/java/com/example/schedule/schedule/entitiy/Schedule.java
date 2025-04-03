@@ -1,6 +1,7 @@
 package com.example.schedule.schedule.entitiy;
 
 import com.example.schedule.baseEntity.BaseEntity;
+import com.example.schedule.comment.entity.Comment;
 import com.example.schedule.user.entity.User;
 import com.example.schedule.schedule.dto.RequstScheduleDto;
 import jakarta.persistence.*;
@@ -9,7 +10,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
+@Setter
 @Table(name = "schedule")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,10 +31,13 @@ public class Schedule extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany
+    @JoinColumn(name = "Comment_id")
+    private List<Comment> comment;
 
     public Schedule(RequstScheduleDto requstScheduleDto) {
         this.title = requstScheduleDto.getTitle();
