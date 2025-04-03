@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public ResponseUserDto updateUser(Long id, RequestUserDto requestUserDto) {
-        User findIdUser = userRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionErrorCode.DEFAULT_ERROR_MESSAGE)));
+        User findIdUser = userRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionErrorCode.DEFAULT_ERROR_MESSAGE));
         findIdUser.update(requestUserDto);
 
         return new ResponseUserDto(

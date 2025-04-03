@@ -41,7 +41,7 @@ public class ScheduleController {
      * @return
      */
 
-    @GetMapping!
+    @GetMapping
     public ResponseEntity<List<ResponseScheduleDto>> getAllSchedule() {
         return new ResponseEntity<>(scheduleService.getAllServiceSchedule(), HttpStatus.OK);
     }
