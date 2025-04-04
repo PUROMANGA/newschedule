@@ -35,12 +35,10 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String pw;
 
-    @OneToMany
-    @JoinColumn(name = "schedule_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Schedule> scheduleList;
 
-    @OneToMany
-    @JoinColumn(name = "comment_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList;
 
     public User(RequestUserDto requestUserDto) {
